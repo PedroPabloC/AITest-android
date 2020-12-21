@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FlashcardsAI</string>
+    <string name="btn_voice_txt">Empezar a escuchar</string>
+</resources>

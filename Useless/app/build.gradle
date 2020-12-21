@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    //AI
+    /*
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -13,7 +13,7 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
-    }
+    }*/
    //AI
 
     compileSdkVersion 29
@@ -51,5 +51,7 @@ dependencies {
     //librerias necesarias para el asistente
     implementation 'ai.api:sdk:2.0.7@aar'
     implementation 'ai.api:libai:1.6.12'
+    //dialogFlow
+    implementation 'com.google.cloud:google-cloud-dialogflow:2.1.0'
 
 }

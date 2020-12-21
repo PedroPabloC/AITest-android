@@ -7,12 +7,29 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 //API AI
 import com.google.gson.JsonElement;
+import com.google.api.gax.core.FixedCredentialsProvider;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.dialogflow.v2.DetectIntentResponse;
+import com.google.cloud.dialogflow.v2.QueryInput;
+import com.google.cloud.dialogflow.v2.SessionName;
+import com.google.cloud.dialogflow.v2.SessionsClient;
+import com.google.cloud.dialogflow.v2.SessionsSettings;
+
+//Extras
+import com.google.common.collect.Lists;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import java.util.Map;
 
@@ -29,6 +46,14 @@ public class MainActivity extends AppCompatActivity implements AIListener, View.
     private TextView tvResult;
     private AIService aiService;
     private static final int REQUEST_INTERNET = 200;
+    //dialogFlow
+    private SessionsClient sessionsClient;
+    private SessionName sessionName;
+    private String uuid = UUID.randomUUID().toString();
+    private String TAG = "mainactivity";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +83,25 @@ public class MainActivity extends AppCompatActivity implements AIListener, View.
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET}, REQUEST_INTERNET);
             }
+        }
+    }
+
+    private void setUpBot() {
+        try {
+            InputStream stream = this.getResources().openRawResource(R.raw.credentials);
+            GoogleCredentials credentials = GoogleCredentials.fromStream(stream)
+                    .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+            String projectId = ((ServiceAccountCredentials) credentials).getProjectId();
+
+            SessionsSettings.Builder settingsBuilder = SessionsSettings.newBuilder();
+            SessionsSettings sessionsSettings = settingsBuilder.setCredentialsProvider(
+                    FixedCredentialsProvider.create(credentials)).build();
+            sessionsClient = SessionsClient.create(sessionsSettings);
+            sessionName = SessionName.of(projectId, uuid);
+
+            Log.d(TAG, "projectId : " + projectId);
+        } catch (Exception e) {
+            Log.d(TAG, "setUpBot: " + e.getMessage());
         }
     }
 

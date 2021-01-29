@@ -57,7 +57,7 @@ El asistente de este proyecto se basa en Dialogflow, que es una plataforma con c
 
 *Así de fácil es crear un agente en Dialogflow, puedes probar tu proyecto en la consola que está en el apartado derecho (con texto o voz)*
 
-**En la siguiente [irección](https://youtu.be/zhYC7kEh7KM) puedes encontrar un tutorial de una de las muchas implementaciones posibles para esta plataforma de Google, es el caso de Android Studio.
+**En la siguiente [dirección](https://youtu.be/zhYC7kEh7KM) puedes encontrar un tutorial de una de las muchas implementaciones posibles para esta plataforma de Google, es el caso de Android Studio.**
 
 
 #### Los datos y recursos de este repositorio fueron obtenidos de las siguientes fuentes:
